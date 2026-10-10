@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/catalogo")
+@RequestMapping("/v1/catalogo")
 public class CatalogoController {
 
     private final List<String> productos = new ArrayList<>(Arrays.asList(
