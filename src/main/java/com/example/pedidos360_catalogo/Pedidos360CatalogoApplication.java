@@ -29,3 +29,4 @@ public class Pedidos360CatalogoApplication {
             }
         };
     }
+}
