@@ -20,13 +20,12 @@ public class Pedidos360CatalogoApplication {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedOrigins(
-                            "http://localhost:4200", 
-                            "http://localhost", 
-                            "http://<IP_EC2_FRONTEND>" // Reemplazar con la IP pública de la EC2 del frontend
+                            "http://localhost:4200",
+                            "http://localhost",
+                            "https://j6puxfstah.execute-api.us-east-1.amazonaws.com"
                         )
-                        .allowedMethods("GET", "POST", "PUT", "DELETE")
-                        .allowedHeaders("*");
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedHeaders("Authorization", "Content-Type", "Accept");
             }
         };
     }
-}
