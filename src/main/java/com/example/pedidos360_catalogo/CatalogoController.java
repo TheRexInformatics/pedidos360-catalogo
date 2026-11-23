@@ -1,48 +1,34 @@
-package com.example.pedidos360_catalogo;
+// Mantén tu línea "package ...;" original aquí arriba
 
 import org.springframework.web.bind.annotation.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @RestController
 @RequestMapping("/v1/catalogo")
 public class CatalogoController {
 
-    private final List<String> productos = new ArrayList<>(Arrays.asList(
-        "Hamburguesa Triple", 
-        "Papas Supremas", 
-        "Bebida Grande", 
-        "Pizza Familiar",
-        "Pastel de Chocolate"
-    ));
+    // Inicia vacío: sin productos por defecto
+    private final List<String> productos = new CopyOnWriteArrayList<>();
 
     @GetMapping
-    public List<String> obtenerProductos() {
+    public List<String> obtenerCatalogo() {
         return productos;
     }
 
     @PostMapping
-    public String agregarProducto(@RequestBody String nuevoProducto) {
-        productos.add(nuevoProducto);
-        return "Producto añadido al catálogo";
-    }
+    public Map<String, Object> crearProductoCatalogo(@RequestBody Map<String, Object> body) {
+        String nombre = String.valueOf(body.getOrDefault("nombre", "")).trim();
 
-    @PutMapping("/{id}")
-    public String modificarProducto(@PathVariable int id, @RequestBody String productoModificado) {
-        if (id >= 0 && id < productos.size()) {
-            productos.set(id, productoModificado);
-            return "Producto actualizado";
+        if (!nombre.isEmpty() && !productos.contains(nombre)) {
+            productos.add(nombre);
         }
-        return "Error: Producto no encontrado";
-    }
 
-    @DeleteMapping("/{id}")
-    public String eliminarProducto(@PathVariable int id) {
-        if (id >= 0 && id < productos.size()) {
-            productos.remove(id);
-            return "Producto eliminado del catálogo";
-        }
-        return "Error: Producto no encontrado";
+        return Map.of(
+            "mensaje", "Producto agregado al catálogo",
+            "producto", nombre,
+            "catalogo", productos
+        );
     }
 }
