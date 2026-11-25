@@ -1,4 +1,4 @@
-// Mantén tu línea "package ...;" original aquí arriba
+package com.example.pedidos360_catalog;
 
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
